@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import { configDotenv } from "dotenv";
 import express, { json, urlencoded } from "express";
 import cors from 'cors';
+import connectDB from "./db/db.js";
 
 configDotenv()
 
@@ -19,17 +20,20 @@ app.use(urlencoded({
     extended: true
 }))
 
-
 app.use(cookieParser())
 
 app.use(express.static("public"))
 
 app.use(json())
 
-// connect db
+// connect DB
 
-app.listen(5000, () => {
-    console.log("server is running on: ", 5000);
+connectDB().then(() => {
+    app.listen(5000, () => {
+        console.log("server is running on: ", 5000);
+    })
+}).catch((error) => {
+    console.error(error)
 })
 
 app.get('/', (req, res) => {
