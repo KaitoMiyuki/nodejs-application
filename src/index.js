@@ -3,6 +3,7 @@ import { configDotenv } from "dotenv";
 import express, { json, urlencoded } from "express";
 import cors from 'cors';
 import connectDB from "./db/db.js";
+import shopRouter from "./routes/shop.routes.js";
 
 configDotenv()
 
@@ -44,3 +45,5 @@ app.get('/', (req, res) => {
         https://stackabuse.com/handling-cors-with-node-js/
     </a>`)
 })
+
+app.use("/api/shop", shopRouter)
